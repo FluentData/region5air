@@ -30,24 +30,24 @@ so2_raw_aqs <- read.csv("data-raw/daily_so2_17_031_0076_2021.csv") %>%
   mutate(parameter = "so2",
          AQI = as.character(AQI))
 
-chicago_aqs_raw <- bind_rows(no2_raw_aqs, #ozone_raw_aqs,
+chicago_aqs <- bind_rows(no2_raw_aqs, #ozone_raw_aqs,
                              pm25_raw_aqs, so2_raw_aqs) %>%
   distinct() %>%
   group_by(State.Code, County.Code, Site.Number, Parameter.Code) %>%
   filter(POC == min(POC)) %>%
   ungroup()
 
-names(chicago_aqs_raw) <- gsub("\\.", "_", names(chicago_aqs_raw))
-names(chicago_aqs_raw) <- gsub("__", "_", names(chicago_aqs_raw))
-names(chicago_aqs_raw) <- gsub("_$", "", names(chicago_aqs_raw))
+names(chicago_aqs) <- gsub("\\.", "_", names(chicago_aqs))
+names(chicago_aqs) <- gsub("__", "_", names(chicago_aqs))
+names(chicago_aqs) <- gsub("_$", "", names(chicago_aqs))
 
-chicago_daily <- chicago_aqs_raw %>%
+chicago_daily <- chicago_aqs %>%
   transmute(parameter,
             date = Date_Local,
             value = First_Maximum_Value) %>%
   pivot_wider(names_from = parameter, values_from = value)
   
-chicago_aqs_raw <- chicago_aqs_raw %>%
+chicago_aqs <- chicago_aqs %>%
   select(-parameter)
 
 emissions_unit <- read_excel("data-raw/emissions_IL_2022.xlsx",
@@ -91,5 +91,5 @@ chicago_air <- ozone %>%
 ################################################################################
 
 
-usethis::use_data(chicago_aqs_raw, chicago_daily, emissions_unit,
+usethis::use_data(chicago_aqs, chicago_daily, emissions_unit,
                   emissions_fuel, chicago_air, overwrite = TRUE)
