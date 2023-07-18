@@ -90,6 +90,9 @@ chicago_air <- ozone %>%
 
 ################################################################################
 
+aqs_parameters <- readr::read_csv("data-raw/parameters.csv")
+names(aqs_parameters) <- gsub(" ", "_", names(aqs_parameters))
 
-usethis::use_data(chicago_aqs, chicago_daily, emissions_unit,
+
+usethis::use_data(chicago_aqs, aqs_parameters, chicago_daily, emissions_unit,
                   emissions_fuel, chicago_air, overwrite = TRUE)

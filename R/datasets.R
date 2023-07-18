@@ -58,3 +58,20 @@
 #' 
 #' @source \url{https://aqs.epa.gov/aqsweb/airdata/download_files.html}
 "chicago_aqs"
+
+#' Table of parameter information from AQS.
+#'
+#'
+#' @format A data frame with 1477 rows and 8 variables:
+#' \describe{
+#'   \item{Parameter_Code}{5 digit numeric code}
+#'   \item{Parameter}{Chemical description}
+#'   \item{Parameter Abbreviation}{Abbreviation}
+#'   \item{Parameter_Alternate_Name}{Common alternative chemical name}
+#'   \item{CAS_Number}{Chemical Abstract Service number}
+#'   \item{Standard_Units}{Standard unit of measurement}
+#'   \item{Still_Valid}{Still valid as an AQS parameter}
+#'   \item{Round_or_Truncate}{Is the value in the AQS database rounded or truncated}
+#' }
+#' @source \url{https://aqs.epa.gov/aqsweb/documents/codetables/parameters.html}
+"aqs_parameters"
