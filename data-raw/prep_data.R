@@ -94,5 +94,35 @@ aqs_parameters <- readr::read_csv("data-raw/parameters.csv")
 names(aqs_parameters) <- gsub(" ", "_", names(aqs_parameters))
 
 
+################################################################################
+
+# load chicago_ozone_hourly and chicago_wind_hourly
+load("data-raw/hourly_ozone_17_031_4201_2021.rda")
+load("data-raw/hourly_wind_17_031_4201_2021.rda")
+
+wind_hourly <- chicago_wind_hourly %>%
+  transmute(datetime = as.POSIXct(paste(`Date Local`, `Time Local`),
+                                  tz = "CST6CDT"),
+            parameter = tolower(`Parameter Name`),
+            parameter = sub(" - resultant", "", parameter),
+            parameter = sub(" ", "_", parameter),
+            value = `Sample Measurement`) %>%
+  pivot_wider(names_from = parameter, values_from = value)
+  
+ozone_hourly <- chicago_ozone_hourly %>%
+  mutate(datetime = as.POSIXct(paste(`Date Local`, `Time Local`),
+                                  tz = "CST6CDT")) %>%
+  group_by(datetime) %>%
+  filter(POC == 1) %>%
+  summarise(ozone = mean(`Sample Measurement`))
+
+chicago_wind <- wind_hourly %>%
+  left_join(ozone_hourly, "datetime") %>%
+  as.data.frame()
+  
+
+################################################################################
+
+
 usethis::use_data(chicago_aqs, aqs_parameters, chicago_daily, emissions_unit,
-                  emissions_fuel, chicago_air, overwrite = TRUE)
+                  emissions_fuel, chicago_air, chicago_wind, overwrite = TRUE)

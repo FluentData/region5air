@@ -75,3 +75,15 @@
 #' }
 #' @source \url{https://aqs.epa.gov/aqsweb/documents/codetables/parameters.html}
 "aqs_parameters"
+
+#' Wind speed, direction, and ozone from a Chicago monitor
+#' 
+#' @format A data frame with 4834 rows and 4 variables:
+#' \describe{
+#'   \item{datetime}{Date and hour of measurement}
+#'   \item{wind_speed}{Resultant wind speed in knots}
+#'   \item{wind_direction}{Resultant wind direction in degrees}
+#'   \item{ozone}{Ozone concentration in parts per million}
+#'}
+#' @source \url{https://aqs.epa.gov/aqsweb/airdata/download_files.html}
+"chicago_aqs"

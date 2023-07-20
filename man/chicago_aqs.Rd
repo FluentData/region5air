@@ -42,14 +42,28 @@ A data frame with 1009 rows and 34 columns:
   \item{MSA_or_CBSA_Name}
   \item{Data_Source}
 }
+
+A data frame with 4834 rows and 4 variables:
+\describe{
+  \item{datetime}{Date and hour of measurement}
+  \item{wind_speed}{Resultant wind speed in knots}
+  \item{wind_direction}{Resultant wind direction in degrees}
+  \item{ozone}{Ozone concentration in parts per million}
+}
 }
 \source{
+\url{https://aqs.epa.gov/aqsweb/airdata/download_files.html}
+
 \url{https://aqs.epa.gov/aqsweb/airdata/download_files.html}
 }
 \usage{
 chicago_aqs
+
+chicago_aqs
 }
 \description{
 Air quality data from AQS
+
+Wind speed, direction, and ozone from a Chicago monitor
 }
 \keyword{datasets}
