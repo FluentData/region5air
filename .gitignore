@@ -50,3 +50,7 @@ rsconnect/
 region5air.Rcheck/
 region5air*.tar.gz
 region5air*.tgz
+
+
+.Rbuildignore
+project.Rproj
