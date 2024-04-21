@@ -119,10 +119,22 @@ ozone_hourly <- chicago_ozone_hourly %>%
 chicago_wind <- wind_hourly %>%
   left_join(ozone_hourly, "datetime") %>%
   as.data.frame()
+
+################################################################################
+
+# ertac_egu_projections <- read_excel("data-raw/ERTAC_2022_2038.xlsx", sheet = "2038-4")
+
+# write.csv(ertac_egu_projections, "data-raw/ertac_2022_2038.csv", row.names = FALSE)
+
+# manually changed the column names in the csv file
+
+ertac_egu_projections <- readr::read_csv("data-raw/ertac_2022_2038.csv")
   
 
 ################################################################################
 
 
 usethis::use_data(chicago_aqs, aqs_parameters, chicago_daily, emissions_unit,
-                  emissions_fuel, chicago_air, chicago_wind, overwrite = TRUE)
+                  emissions_fuel, chicago_air, chicago_wind, ertac_egu_projections,
+                  overwrite = TRUE)
+
